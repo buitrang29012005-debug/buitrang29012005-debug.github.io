@@ -307,7 +307,102 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition-duration: .01ms !important; }
     }
-  </style>
+  
+    .music {
+      padding: 34px 0 92px;
+      border-top: 1px solid var(--line);
+    }
+    .music-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+    .music-head h2 {
+      margin: 10px 0 0;
+      font-size: clamp(30px, 5vw, 48px);
+      letter-spacing: -.06em;
+    }
+    .music-head p {
+      max-width: 390px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+    .music-card {
+      min-height: 245px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      background: #25352d;
+      color: #f5f3ef;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .music-card:hover {
+      transform: translateY(-4px);
+      background: #304439;
+      box-shadow: 0 16px 32px rgba(32,33,31,.12);
+    }
+    .music-card:nth-child(2) { background: #34404a; }
+    .music-card:nth-child(2):hover { background: #3f4e5a; }
+    .music-card:nth-child(3) { background: #514738; }
+    .music-card:nth-child(3):hover { background: #625541; }
+    .music-mark {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(245,243,239,.68);
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: .13em;
+    }
+    .music-icon { font-size: 25px; }
+    .music-card h3 {
+      margin: 24px 0 9px;
+      font-size: 22px;
+      letter-spacing: -.05em;
+    }
+    .music-card p {
+      margin: 0;
+      color: rgba(245,243,239,.76);
+      font-size: 13px;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    .music-cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(245,243,239,.18);
+      color: #e7eadf;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    @media (max-width: 820px) {
+      .music-head { display: block; }
+      .music-head p { margin-top: 13px; }
+      .music-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .music-grid { grid-template-columns: 1fr; }
+      .music-card { min-height: 205px; }
+    }
+
+</style>
 </head>
 <body>
   <div class="shell">
@@ -317,6 +412,7 @@
         <a href="#about">소개</a>
         <a href="#games">게임</a>
         <a href="#cuisine">요리</a>
+        <a href="#music">음악</a>
         <a href="https://github.com/buitrang29012005-debug" target="_blank" rel="noreferrer">GitHub ↗</a>
       </nav>
     </header>
@@ -365,6 +461,43 @@
         </div>
       </section>
 
+
+
+      <section class="music" id="music" aria-labelledby="music-title">
+        <div class="music-head">
+          <div>
+            <div class="section-label">Made with Suno</div>
+            <h2 id="music-title">내가 만든 음악</h2>
+          </div>
+          <p>서로 다른 분위기의 세 곡을 골랐습니다. 제목을 누르면 Suno에서 곡과 가사를 볼 수 있어요.</p>
+        </div>
+        <div class="music-grid">
+          <a class="music-card" href="https://suno.com/song/d70ace33-0649-443d-82ff-54364c8d5a64" target="_blank" rel="noreferrer">
+            <div>
+              <div class="music-mark"><span>KOREAN DRILL · RAP</span><span class="music-icon" aria-hidden="true">🎙️</span></div>
+              <h3>밑에서 시작해</h3>
+              <p>빈손에서 출발해 자기 힘으로 길을 열어 가자는 메시지를 담은 한국어 드릴 랩.</p>
+            </div>
+            <div class="music-cta"><span>4:00 · Suno에서 듣기</span><span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="music-card" href="https://suno.com/song/a7b39116-9dd0-49ca-90ea-1fb87e69c6fa" target="_blank" rel="noreferrer">
+            <div>
+              <div class="music-mark"><span>ELECTRONIC POP</span><span class="music-icon" aria-hidden="true">🌤️</span></div>
+              <h3>같은 풍경 다정해</h3>
+              <p>익숙한 골목과 작은 친절에서 하루의 온기를 발견하는 산뜻한 팝.</p>
+            </div>
+            <div class="music-cta"><span>2:59 · Suno에서 듣기</span><span aria-hidden="true">↗</span></div>
+          </a>
+          <a class="music-card" href="https://suno.com/song/652f8bc7-e6ad-409e-9778-60aa4338cfd9" target="_blank" rel="noreferrer">
+            <div>
+              <div class="music-mark"><span>BOSSA NOVA · INSTRUMENTAL</span><span class="music-icon" aria-hidden="true">🎸</span></div>
+              <h3>3 분 보사노바 반주</h3>
+              <p>나일론 기타 리듬과 따뜻한 전자 베이스, 은은한 신스가 어우러진 연주곡.</p>
+            </div>
+            <div class="music-cta"><span>3:19 · Suno에서 듣기</span><span aria-hidden="true">↗</span></div>
+          </a>
+        </div>
+      </section>
 
       <section class="cuisine" id="cuisine" aria-labelledby="cuisine-title">
         <div class="cuisine-head">
