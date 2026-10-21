@@ -140,7 +140,61 @@
       color: var(--muted);
       font-size: 12px;
     }
+
+    .games {
+      padding: 34px 0 100px;
+      border-top: 1px solid var(--line);
+    }
+    .games-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin: 0 0 30px;
+    }
+    .games-heading h2 {
+      margin: 10px 0 0;
+      font-size: clamp(30px, 5vw, 48px);
+      letter-spacing: -.06em;
+    }
+    .games-heading p {
+      max-width: 360px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .game-card {
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .42);
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .game-card:hover {
+      transform: translateY(-4px);
+      background: #fff;
+      border-color: rgba(82, 107, 90, .45);
+    }
+    .game-icon { font-size: 28px; }
+    .game-card h3 { margin: 24px 0 8px; font-size: 19px; letter-spacing: -.04em; }
+    .game-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; word-break: keep-all; }
+    .game-play { margin-top: 22px; color: var(--accent); font-size: 13px; font-weight: 700; }
     @media (max-width: 720px) {
+      .games-heading { display: block; }
+      .games-heading p { margin-top: 14px; }
+      .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .shell { width: min(100% - 36px, 560px); }
       header { min-height: 70px; }
       .nav { gap: 18px; }
@@ -163,6 +217,7 @@
       <a class="brand" href="#" aria-label="처음으로">브이티투짱</a>
       <nav class="nav" aria-label="주요 메뉴">
         <a href="#about">소개</a>
+        <a href="#games">게임</a>
         <a href="https://github.com/buitrang29012005-debug" target="_blank" rel="noreferrer">GitHub ↗</a>
       </nav>
     </header>
@@ -179,6 +234,35 @@
           <span class="spark one">✳</span>
           <span class="spark two">✦</span>
           <div class="orb">안녕</div>
+        </div>
+      </section>
+
+
+      <section class="games" id="games" aria-labelledby="games-title">
+        <div class="games-heading">
+          <div>
+            <div class="section-label">Play something</div>
+            <h2 id="games-title">작은 게임들</h2>
+          </div>
+          <p>잠깐 쉬어가고 싶을 때 즐길 수 있는 미니게임을 모았습니다. 마음에 드는 게임을 골라 시작해 보세요.</p>
+        </div>
+        <div class="game-grid">
+          <a class="game-card" href="https://buitrang29012005-debug.github.io/game/01_dice.html">
+            <div><span class="game-icon" aria-hidden="true">🎲</span><h3>주사위 3개</h3><p>주사위 세 개를 굴려 합계를 확인하고 행운의 잭팟에 도전해 보세요.</p></div>
+            <span class="game-play">게임 시작 ↗</span>
+          </a>
+          <a class="game-card" href="https://buitrang29012005-debug.github.io/game/02_dice.html">
+            <div><span class="game-icon" aria-hidden="true">🎯</span><h3>5×5 빙고</h3><p>숫자를 골라 표시하고 가로·세로·대각선 빙고를 완성해 보세요.</p></div>
+            <span class="game-play">게임 시작 ↗</span>
+          </a>
+          <a class="game-card" href="https://buitrang29012005-debug.github.io/game/03_dice.html">
+            <div><span class="game-icon" aria-hidden="true">🧩</span><h3>블록 블라스트</h3><p>블록을 보드에 놓고 한 줄씩 지우며 최고 점수에 도전해 보세요.</p></div>
+            <span class="game-play">게임 시작 ↗</span>
+          </a>
+          <a class="game-card" href="https://buitrang29012005-debug.github.io/game/04_dice.html">
+            <div><span class="game-icon" aria-hidden="true">🐍</span><h3>스네이크</h3><p>뱀을 조종해 먹이를 먹고 벽에 부딪히지 않도록 오래 버텨 보세요.</p></div>
+            <span class="game-play">게임 시작 ↗</span>
+          </a>
         </div>
       </section>
 
