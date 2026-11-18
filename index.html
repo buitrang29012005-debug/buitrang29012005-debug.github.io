@@ -1,268 +1,797 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f3ef">
-  <meta name="description" content="브이티투짱의 개인 홈페이지입니다.">
-  <title>브이티투짱 — 개인 홈페이지</title>
+  <meta name="theme-color" content="#f4efff">
+  <meta name="description" content="부이 티 투 짱 - 3D 포트폴리오와 디지털 아카이브">
+  <title>부이 티 투 짱 | 3D 포트폴리오 & 디지털 아카이브</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
-      --paper: #f5f3ef;
-      --ink: #20211f;
-      --muted: #73746e;
-      --accent: #526b5a;
-      --line: rgba(32, 33, 31, .14);
+      --paper: #f4eef7;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-solid: #ffffff;
+      --surface-subtle: rgba(238, 228, 242, 0.9);
+      --ink: #1e1826;
+      --muted: #534b63;
+      --accent: #9c4d7d;
+      --accent-deep: #43385e;
+      --accent-light: rgba(156, 77, 125, 0.14);
+      --line: rgba(30, 24, 38, 0.12);
+      --shadow-sm: 0 6px 20px rgba(30, 24, 38, 0.06);
+      --shadow-md: 0 16px 38px rgba(30, 24, 38, 0.11);
+      --shadow-lg: 0 28px 60px rgba(30, 24, 38, 0.18);
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
     }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: var(--paper);
+      background-color: var(--paper);
       color: var(--ink);
-      font-family: Inter, Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-font-smoothing: antialiased;
+      line-height: 1.65;
+      position: relative;
+      overflow-x: hidden;
     }
-    a { color: inherit; }
-    .shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+
+    /* 3D Dreamy Ambient Wallpaper Background */
+    .ambient-wallpaper {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(255, 182, 215, 0.75) 0%, transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(162, 181, 245, 0.75) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(220, 180, 240, 0.6) 0%, transparent 50%),
+        url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=85");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transform: scale(1.04);
+    }
+    .ambient-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        180deg,
+        rgba(244, 238, 247, 0.4) 0%,
+        rgba(243, 236, 246, 0.78) 45%,
+        rgba(241, 234, 245, 0.92) 100%
+      );
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* Sticky 3D Glassmorphism Navigation */
+    .navbar-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 250, 255, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 24px rgba(30, 24, 38, 0.05);
+    }
+    .shell {
+      width: min(1160px, calc(100% - 48px));
+      margin: 0 auto;
+    }
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-height: 84px;
-      border-bottom: 1px solid var(--line);
+      height: 80px;
     }
-    .brand { font-size: 14px; font-weight: 750; letter-spacing: -.03em; text-decoration: none; }
-    .nav { display: flex; gap: 28px; font-size: 13px; color: var(--muted); }
-    .nav a { text-decoration: none; }
-    .nav a:hover { color: var(--ink); }
-    .hero {
-      min-height: min(720px, calc(100svh - 85px));
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
+    .brand {
+      display: flex;
       align-items: center;
-      gap: 56px;
-      padding: 90px 0 110px;
+      gap: 12px;
+      font-size: 16.5px;
+      font-weight: 850;
+      letter-spacing: -0.02em;
     }
-    .eyebrow {
-      margin: 0 0 24px;
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
+    .brand-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent);
+      box-shadow: 0 4px 10px rgba(156, 77, 125, 0.3);
     }
-    h1 {
-      max-width: 720px;
-      margin: 0;
-      font-size: clamp(56px, 9vw, 112px);
-      line-height: .98;
-      letter-spacing: -.075em;
-      font-weight: 720;
-    }
-    .intro {
-      max-width: 480px;
-      margin: 30px 0 0;
-      color: var(--muted);
-      font-size: clamp(16px, 2vw, 19px);
-      line-height: 1.85;
-      word-break: keep-all;
-    }
-    .cta {
-      display: inline-flex;
+    .nav {
+      display: flex;
       align-items: center;
-      gap: 14px;
-      margin-top: 34px;
-      padding: 13px 0;
-      border-bottom: 1px solid var(--ink);
-      text-decoration: none;
-      font-size: 14px;
+      gap: 30px;
+      font-size: 14.5px;
       font-weight: 650;
+      color: var(--muted);
     }
-    .cta span { transition: transform .2s ease; }
-    .cta:hover span { transform: translate(3px, -3px); }
-    .art {
+    .nav a {
       position: relative;
-      display: grid;
-      place-items: center;
-      min-height: 390px;
-      overflow: hidden;
-      background: #e6e7df;
-      border-radius: 48% 48% 8px 8px;
+      padding: 6px 0;
+      transition: color 0.2s ease;
     }
-    .art::before, .art::after {
+    .nav a:hover { color: var(--ink); }
+    .nav a::after {
       content: "";
       position: absolute;
-      border: 1px solid rgba(82, 107, 90, .35);
-      border-radius: 50%;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+      border-radius: 4px;
+      transition: width 0.25s ease;
     }
-    .art::before { width: 260px; height: 260px; }
-    .art::after { width: 330px; height: 330px; }
-    .orb {
-      z-index: 1;
-      display: grid;
-      place-items: center;
-      width: 190px;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #f5f3ef;
-      font-size: clamp(44px, 6vw, 68px);
-      font-weight: 700;
-      letter-spacing: -.08em;
-      box-shadow: 0 22px 60px rgba(41, 57, 46, .2);
+    .nav a:hover::after { width: 100%; }
+    .nav-github {
+      padding: 8px 16px !important;
+      border: 1px solid rgba(156, 77, 125, 0.3);
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink) !important;
+      font-size: 13.5px;
+      font-weight: 750;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition) !important;
     }
-    .spark {
-      position: absolute;
-      z-index: 2;
-      color: #bd805f;
-      font-size: 28px;
-    }
-    .spark.one { top: 22%; right: 21%; }
-    .spark.two { bottom: 20%; left: 19%; font-size: 18px; }
-    section.about {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 48px;
-      padding: 34px 0 100px;
-      border-top: 1px solid var(--line);
-    }
-    .section-label { color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
-    .about h2 { margin: 0 0 18px; font-size: clamp(25px, 4vw, 38px); letter-spacing: -.055em; }
-    .about p { max-width: 610px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.9; word-break: keep-all; }
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 22px 0 30px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 12px;
+    .nav-github::after { display: none !important; }
+    .nav-github:hover {
+      border-color: var(--accent);
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
-    .games {
-      padding: 34px 0 100px;
-      border-top: 1px solid var(--line);
+    /* Hero Section with 3D Depth Card */
+    .hero {
+      min-height: min(740px, calc(100svh - 80px));
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 56px;
+      padding: 60px 0 90px;
     }
-    .games-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin: 0 0 30px;
+    .hero-glass-panel {
+      padding: 44px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-md), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+      transform: perspective(1000px) rotateY(0deg);
+      transition: var(--transition);
     }
-    .games-heading h2 {
-      margin: 10px 0 0;
-      font-size: clamp(30px, 5vw, 48px);
-      letter-spacing: -.06em;
+    .hero-glass-panel:hover {
+      box-shadow: var(--shadow-lg);
     }
-    .games-heading p {
-      max-width: 360px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 99px;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 12.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    }
+    .badge-pulse {
+      width: 7.5px;
+      height: 7.5px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+    h1 {
       margin: 0;
+      font-size: clamp(38px, 5.2vw, 66px);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      font-weight: 850;
+      word-break: keep-all;
+    }
+    .hero-highlight {
+      background: linear-gradient(135deg, #9c4d7d 0%, #43385e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .intro {
+      max-width: 530px;
+      margin: 22px 0 0;
       color: var(--muted);
-      font-size: 14px;
+      font-size: clamp(16px, 1.7vw, 18.5px);
       line-height: 1.8;
       word-break: keep-all;
     }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 28px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #43385e 0%, #9c4d7d 100%);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      transition: var(--transition);
+      box-shadow: 0 10px 25px rgba(156, 77, 125, 0.32);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(156, 77, 125, 0.42);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 26px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-secondary:hover {
+      background: #ffffff;
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* 3D 3D 아바타 Frame (Nh창n v梳춗 ho梳죜 h챙nh 3D) */
+    .portrait-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .portrait-ring {
+      position: absolute;
+      width: 108%;
+      height: 108%;
+      border: 2px dashed rgba(156, 77, 125, 0.5);
+      border-radius: 240px 240px 40px 40px;
+      transform: rotate(4deg);
+      pointer-events: none;
+      animation: floatRing 8s ease-in-out infinite alternate;
+    }
+    @keyframes floatRing {
+      0% { transform: rotate(2deg) scale(0.98); }
+      100% { transform: rotate(6deg) scale(1.02); }
+    }
+    .portrait-frame {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 4 / 5;
+      border-radius: 210px 210px 32px 32px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #fce4ec 0%, #e8eaf6 100%);
+      border: 6px solid rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-lg), 0 0 40px rgba(156, 77, 125, 0.2);
+      transition: var(--transition);
+    }
+    .portrait-frame:hover {
+      transform: translateY(-8px) scale(1.01);
+    }
+    .portrait-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.7s ease;
+    }
+    .portrait-frame:hover .portrait-img {
+      transform: scale(1.06);
+    }
+    .portrait-caption {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 25px rgba(30, 24, 38, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    .portrait-name {
+      font-size: 14px;
+      font-weight: 850;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .portrait-role {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .portrait-flag {
+      padding: 5px 12px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, #43385e 0%, #9c4d7d 100%);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+    }
+
+    /* Common Section Layout */
+    .section-block {
+      padding: 90px 0;
+      border-top: 1px solid rgba(156, 77, 125, 0.15);
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .section-kicker {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 12.5px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(30px, 4.2vw, 44px);
+      font-weight: 850;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+    }
+    .section-header p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    /* 3D Wallpaper Banner */
+    .wallpaper-banner {
+      position: relative;
+      height: 260px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-md);
+      background: linear-gradient(135deg, #5b507d 0%, #a26488 50%, #e2b4cb 100%);
+    }
+    .wallpaper-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 45%;
+    }
+    .wallpaper-banner-caption {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(30, 24, 38, 0.68) 0%, rgba(30, 24, 38, 0.15) 70%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px 36px;
+      color: #ffffff;
+    }
+    .wallpaper-banner-caption span {
+      font-size: 11.5px;
+      font-weight: 750;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ffccd9;
+      margin-bottom: 6px;
+    }
+    .wallpaper-banner-caption strong {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .about-text {
+      padding: 38px;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-sm);
+    }
+    .about-text h2 {
+      margin: 0 0 18px;
+      font-size: clamp(28px, 3.8vw, 38px);
+      font-weight: 850;
+      letter-spacing: -0.04em;
+    }
+    .about-text p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      word-break: keep-all;
+    }
+    .tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .skill-tag {
+      padding: 7px 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(156, 77, 125, 0.2);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+      box-shadow: 0 2px 8px rgba(30, 24, 38, 0.03);
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .stat-card {
+      padding: 18px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(156, 77, 125, 0.15);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-num {
+      font-size: 26px;
+      font-weight: 850;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+    .stat-label {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    /* Collage 3D Effect */
+    .about-collage {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-rows: 215px 215px;
+      gap: 16px;
+    }
+    .collage-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .collage-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .collage-card.tall {
+      grid-row: span 2;
+    }
+    .collage-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .collage-card:hover img {
+      transform: scale(1.07);
+    }
+    .collage-label {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      padding: 5px 12px;
+      border-radius: 10px;
+      background: rgba(30, 24, 38, 0.78);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+
+    /* Games Grid */
     .game-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
+      gap: 20px;
     }
     .game-card {
-      min-height: 230px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 22px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, .42);
-      text-decoration: none;
-      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
     }
     .game-card:hover {
-      transform: translateY(-4px);
-      background: #fff;
-      border-color: rgba(82, 107, 90, .45);
+      transform: translateY(-8px);
+      background: var(--surface-solid);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
     }
-    .game-icon { font-size: 28px; }
-    .game-card h3 { margin: 24px 0 8px; font-size: 19px; letter-spacing: -.04em; }
-    .game-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; word-break: keep-all; }
-    .game-play { margin-top: 22px; color: var(--accent); font-size: 13px; font-weight: 700; }
-
-    .cuisine {
-      padding: 34px 0 92px;
-      border-top: 1px solid var(--line);
+    .game-thumb-wrap {
+      position: relative;
+      height: 156px;
+      overflow: hidden;
+      background: var(--surface-subtle);
     }
-    .cuisine-head {
+    .game-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .game-card:hover .game-thumb {
+      transform: scale(1.08);
+    }
+    .game-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 5px 11px;
+      border-radius: 9px;
+      background: rgba(30, 24, 38, 0.82);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-size: 11.5px;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+    }
+    .game-body {
+      padding: 22px;
+      flex: 1;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 26px;
     }
-    .cuisine-head h2 {
-      margin: 10px 0 0;
-      font-size: clamp(30px, 5vw, 48px);
-      letter-spacing: -.06em;
+    .game-card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
-    .cuisine-head p {
-      max-width: 390px;
+    .game-card p {
       margin: 0;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.8;
+      line-height: 1.7;
       word-break: keep-all;
     }
+    .game-play {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--accent);
+      font-size: 13.5px;
+      font-weight: 750;
+    }
+
+    /* Music Grid */
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+    .music-card {
+      position: relative;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 26px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      color: #f6f4f0;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .music-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+    .music-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      transition: transform 0.7s ease;
+    }
+    .music-card:hover .music-bg {
+      transform: scale(1.08);
+    }
+    .music-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(42, 24, 40, 0.4) 0%, rgba(26, 18, 32, 0.94) 78%);
+    }
+    .music-card:nth-child(2) .music-overlay {
+      background: linear-gradient(180deg, rgba(28, 30, 52, 0.4) 0%, rgba(18, 18, 38, 0.94) 78%);
+    }
+    .music-card:nth-child(3) .music-overlay {
+      background: linear-gradient(180deg, rgba(50, 32, 38, 0.4) 0%, rgba(32, 20, 26, 0.94) 78%);
+    }
+    .music-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .music-mark {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 11.5px;
+      font-weight: 750;
+      letter-spacing: 0.1em;
+    }
+    .music-pill {
+      padding: 5px 12px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+    }
+    .music-card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+    }
+    .music-card p {
+      margin: 0;
+      color: rgba(246, 244, 240, 0.88);
+      font-size: 14px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+    .music-cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 750;
+    }
+
+    /* Cuisine Grid */
     .cuisine-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
     }
     .cuisine-item {
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 14px;
-      align-items: start;
-      min-height: 128px;
-      padding: 19px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255,255,255,.45);
-      text-decoration: none;
-      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
     }
     .cuisine-item:hover {
-      transform: translateY(-3px);
-      background: #fff;
-      border-color: rgba(82,107,90,.45);
+      transform: translateY(-6px);
+      background: var(--surface-solid);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
     }
-    .cuisine-icon {
-      display: grid;
-      place-items: center;
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      background: #e8eae2;
-      font-size: 24px;
+    .cuisine-photo-wrap {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+      background: var(--surface-subtle);
+    }
+    .cuisine-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .cuisine-item:hover .cuisine-photo {
+      transform: scale(1.08);
     }
     .cuisine-region {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 5px 11px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
       color: var(--accent);
-      font-size: 10px;
-      font-weight: 750;
-      letter-spacing: .06em;
+      font-size: 11.5px;
+      font-weight: 850;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+    .cuisine-body {
+      padding: 22px;
+      flex: 1;
     }
     .cuisine-item h3 {
-      margin: 5px 0 6px;
-      font-size: 17px;
-      letter-spacing: -.04em;
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
     .cuisine-item p {
       margin: 0;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.7;
       word-break: keep-all;
     }
@@ -270,286 +799,328 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 18px;
-      padding: 18px 20px;
-      border-radius: 12px;
-      background: #e8eae2;
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 13px;
+      margin-top: 28px;
+      padding: 20px 28px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #43385e 0%, #9c4d7d 100%);
+      color: #ffffff;
+      font-size: 15px;
       font-weight: 750;
+      box-shadow: 0 12px 28px rgba(156, 77, 125, 0.28);
+      transition: var(--transition);
     }
-    .cuisine-more:hover { background: #dfe4d9; }
-    @media (max-width: 720px) {
-      .cuisine-head { display: block; }
-      .cuisine-head p { margin-top: 13px; }
-      .cuisine-grid { gap: 9px; }
-      .cuisine-item { grid-template-columns: 1fr; gap: 10px; min-height: 0; padding: 14px; }
-      .cuisine-icon { width: 38px; height: 38px; font-size: 20px; border-radius: 12px; }
-      .cuisine-item h3 { font-size: 15px; }
-      .cuisine-item p { font-size: 11px; }
+    .cuisine-more:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(156, 77, 125, 0.38);
     }
-    @media (max-width: 720px) {
-      .games-heading { display: block; }
-      .games-heading p { margin-top: 14px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(156, 77, 125, 0.18);
+      background: rgba(255, 250, 255, 0.7);
+      backdrop-filter: blur(14px);
+      padding: 40px 0 50px;
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 22px;
+      font-weight: 650;
+    }
+    .footer-links a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 0 72px; min-height: auto; }
+      .hero-glass-panel { padding: 32px; }
+      .portrait-frame { max-width: 350px; }
+      .about-grid { grid-template-columns: 1fr; }
       .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .shell { width: min(100% - 36px, 560px); }
-      header { min-height: 70px; }
-      .nav { gap: 18px; }
-      .hero { grid-template-columns: 1fr; gap: 46px; min-height: auto; padding: 82px 0 90px; }
-      .art { min-height: 310px; }
-      .art::before { width: 220px; height: 220px; }
-      .art::after { width: 280px; height: 280px; }
-      .orb { width: 160px; }
-      section.about { grid-template-columns: 1fr; gap: 22px; padding-bottom: 75px; }
+      .music-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cuisine-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
+
+    @media (max-width: 680px) {
+      .shell { width: calc(100% - 32px); }
+      header { height: 70px; }
+      .nav { gap: 16px; font-size: 13.5px; }
+      .section-block { padding: 64px 0; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .wallpaper-banner { height: 190px; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); }
+      .about-collage { grid-template-columns: 1fr 1fr; grid-template-rows: 170px 170px; }
+      .cuisine-grid { grid-template-columns: 1fr; }
+      .music-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .game-grid { grid-template-columns: 1fr; }
+      .nav a:not(.nav-github):nth-child(n+4) { display: none; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { transition-duration: .01ms !important; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
     }
   
-    .music {
-      padding: 34px 0 92px;
-      border-top: 1px solid var(--line);
+    /* Refined 3D art direction */
+    :root {
+      --paper: #f4efff;
+      --surface: rgba(255,255,255,.72);
+      --surface-solid: #fff;
+      --surface-subtle: rgba(237,229,255,.82);
+      --ink: #17152c;
+      --muted: #625d7e;
+      --accent: #8b5cf6;
+      --accent-deep: #ec4899;
+      --accent-light: rgba(139,92,246,.13);
+      --line: rgba(92,72,145,.16);
+      --shadow-sm: 0 8px 24px rgba(66,45,116,.10);
+      --shadow-md: 0 20px 48px rgba(66,45,116,.16);
+      --shadow-lg: 0 32px 76px rgba(66,45,116,.22);
     }
-    .music-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 26px;
+    body { background: #f4efff; }
+    .ambient-wallpaper {
+      background-image:
+        radial-gradient(ellipse at 12% 16%, rgba(255,167,220,.8), transparent 34%),
+        radial-gradient(ellipse at 88% 14%, rgba(150,177,255,.78), transparent 38%),
+        radial-gradient(ellipse at 70% 78%, rgba(202,157,255,.62), transparent 42%),
+        url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=85");
+      background-size: cover;
+      animation: ambient-drift 24s ease-in-out infinite alternate;
+      will-change: transform;
     }
-    .music-head h2 {
-      margin: 10px 0 0;
-      font-size: clamp(30px, 5vw, 48px);
-      letter-spacing: -.06em;
+    .ambient-overlay {
+      background: linear-gradient(180deg,rgba(248,245,255,.48),rgba(246,241,255,.78) 48%,rgba(243,237,255,.94));
+      backdrop-filter: blur(12px);
     }
-    .music-head p {
-      max-width: 390px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.8;
-      word-break: keep-all;
+    @keyframes ambient-drift { from { transform: scale(1.04) translate3d(-.5%,0,0); } to { transform: scale(1.11) translate3d(.5%,-1%,0); } }
+    .navbar-wrap { background: rgba(250,248,255,.7); border-color: rgba(255,255,255,.8); }
+    .brand-avatar { border-color: #fff; box-shadow: 0 0 0 3px rgba(139,92,246,.18), 0 8px 24px rgba(139,92,246,.28); }
+    .hero { perspective: 1400px; }
+    .hero-glass-panel {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg,rgba(255,255,255,.84),rgba(255,255,255,.56));
+      border-color: rgba(255,255,255,.95);
+      box-shadow: 0 30px 80px rgba(67,49,119,.16), inset 0 1px 0 #fff;
+      transform: perspective(1200px) rotateY(-3deg) rotateX(1deg);
     }
-    .music-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 13px;
+    .hero-glass-panel::before {
+      content:""; position:absolute; width:300px; height:300px; right:-140px; top:-160px;
+      border-radius:50%; background:radial-gradient(circle,rgba(236,72,153,.2),rgba(139,92,246,.08) 52%,transparent 70%); pointer-events:none;
     }
-    .music-card {
-      min-height: 245px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 22px;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 16px;
-      background: #25352d;
-      color: #f5f3ef;
-      text-decoration: none;
-      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    .hero-glass-panel:hover { transform: perspective(1200px) rotateY(0) translateY(-5px); }
+    .hero-highlight { background-image:linear-gradient(115deg,#6d45dd 5%,#bd4ce2 52%,#ec4899 100%); }
+    .btn-primary { background:linear-gradient(120deg,#6844dc,#9b4ce1 55%,#e34e9b); box-shadow:0 14px 32px rgba(139,92,246,.34),inset 0 1px 0 rgba(255,255,255,.35); }
+    .portrait-wrap { perspective:1100px; }
+    .portrait-frame { transform:rotateY(-8deg) rotateX(4deg); box-shadow:0 38px 85px rgba(67,49,119,.28),0 0 0 1px rgba(255,255,255,.75); }
+    .portrait-frame:hover { transform:rotateY(0) rotateX(0) translateY(-8px); }
+    .section-block { position:relative; }
+    .section-header h2 { text-shadow:0 3px 18px rgba(106,77,165,.12); }
+    .stat-card,.game-card,.cuisine-item {
+      transform-style:preserve-3d; transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s;
+      border:1px solid rgba(255,255,255,.82); box-shadow:0 16px 38px rgba(68,48,119,.10),inset 0 1px 0 rgba(255,255,255,.9);
     }
-    .music-card:hover {
-      transform: translateY(-4px);
-      background: #304439;
-      box-shadow: 0 16px 32px rgba(32,33,31,.12);
+    .stat-card:hover,.game-card:hover,.cuisine-item:hover {
+      transform:translateY(-9px) rotateX(2deg); box-shadow:0 28px 56px rgba(68,48,119,.19),0 0 0 1px rgba(139,92,246,.16);
     }
-    .music-card:nth-child(2) { background: #34404a; }
-    .music-card:nth-child(2):hover { background: #3f4e5a; }
-    .music-card:nth-child(3) { background: #514738; }
-    .music-card:nth-child(3):hover { background: #625541; }
-    .music-mark {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: rgba(245,243,239,.68);
-      font-size: 10px;
-      font-weight: 750;
-      letter-spacing: .13em;
+    .game-thumb-wrap,.cuisine-photo-wrap { overflow:hidden; }
+    .game-thumb,.cuisine-photo { transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .7s; }
+    .game-card:hover .game-thumb,.cuisine-item:hover .cuisine-photo { transform:scale(1.07); filter:saturate(1.12); }
+    .music-card { box-shadow:0 22px 48px rgba(30,20,55,.22); }
+    .music-card:hover { transform:translateY(-9px) rotateX(2deg); box-shadow:0 34px 66px rgba(30,20,55,.3); }
+    footer { background:rgba(250,248,255,.72); backdrop-filter:blur(18px); }
+    :focus-visible { outline:3px solid #9b72f2; outline-offset:4px; border-radius:8px; }
+    @media (max-width:760px) {
+      .hero-glass-panel { transform:none; }
+      .portrait-frame { transform:none; }
+      .hero-glass-panel:hover,.portrait-frame:hover,.stat-card:hover,.game-card:hover,.cuisine-item:hover,.music-card:hover { transform:translateY(-3px); }
     }
-    .music-icon { font-size: 25px; }
-    .music-card h3 {
-      margin: 24px 0 9px;
-      font-size: 22px;
-      letter-spacing: -.05em;
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
     }
-    .music-card p {
-      margin: 0;
-      color: rgba(245,243,239,.76);
-      font-size: 13px;
-      line-height: 1.8;
-      word-break: keep-all;
-    }
-    .music-cta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 25px;
-      padding-top: 15px;
-      border-top: 1px solid rgba(245,243,239,.18);
-      color: #e7eadf;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    @media (max-width: 820px) {
-      .music-head { display: block; }
-      .music-head p { margin-top: 13px; }
-      .music-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 480px) {
-      .music-grid { grid-template-columns: 1fr; }
-      .music-card { min-height: 205px; }
-    }
-
-</style>
+  </style>
 </head>
 <body>
-  <div class="shell">
-    <header>
-      <a class="brand" href="#" aria-label="처음으로">브이티투짱</a>
-      <nav class="nav" aria-label="주요 메뉴">
-        <a href="#about">소개</a>
-        <a href="#games">게임</a>
-        <a href="#cuisine">요리</a>
-        <a href="#music">음악</a>
-        <a href="https://github.com/buitrang29012005-debug" target="_blank" rel="noreferrer">GitHub ↗</a>
-      </nav>
-    </header>
+  <div class="ambient-wallpaper" aria-hidden="true"></div>
+  <div class="ambient-overlay" aria-hidden="true"></div>
 
+  <div class="navbar-wrap">
+    <div class="shell">
+      <header>
+        <a class="brand" href="#" aria-label="홈으로 이동">
+          <img class="brand-avatar" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&q=80" alt="부이 티 투 짱의 3D 아바타">
+          <span>부이 티 투 짱</span>
+        </a>
+        <nav class="nav" aria-label="주요 메뉴">
+          <a href="#about">소개</a>
+          <a href="#games">웹 게임</a>
+          <a href="#music">AI 음악</a>
+          <a href="#cuisine">베트남 음식</a>
+          <a class="nav-github" href="https://github.com/buitrang29012005-debug" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </header>
+    </div>
+  </div>
+
+  <div class="shell">
     <main>
       <section class="hero" aria-labelledby="title">
-        <div>
-          <p class="eyebrow">A little corner of the internet</p>
-          <h1 id="title">안녕하세요,<br>브이티투짱입니다.</h1>
-          <p class="intro">저만의 공간에 오신 것을 환영합니다. 관심 있는 것들을 하나씩 기록하고, 새로운 것을 만들어 가는 중입니다.</p>
-          <a class="cta" href="#about">더 알아보기 <span aria-hidden="true">↘</span></a>
+        <div class="hero-glass-panel">
+          <div class="badge">
+            <span class="badge-pulse" aria-hidden="true"></span>
+            <span>3D 디지털 포트폴리오 아카이브</span>
+          </div>
+          <h1 id="title">안녕하세요,<br>저는 <span class="hero-highlight">부이 티 투 짱</span>입니다.</h1>
+          <p class="intro">3D 공간 디자인에서 영감을 받은 저의 디지털 아카이브입니다. 인터랙티브 웹 게임, AI 음악, 베트남 문화 이야기를 입체적인 시각으로 소개합니다.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#games">프로젝트 둘러보기 <span aria-hidden="true">↗</span></a>
+            <a class="btn-secondary" href="#about">작가 소개</a>
+          </div>
         </div>
-        <div class="art" aria-hidden="true">
-          <span class="spark one">✳</span>
-          <span class="spark two">✦</span>
-          <div class="orb">안녕</div>
+        <div class="portrait-wrap">
+          <div class="portrait-ring" aria-hidden="true"></div>
+          <div class="portrait-frame">
+            <img class="portrait-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=85" alt="부이 티 투 짱의 3D 아바타">
+            <div class="portrait-caption">
+              <div>
+                <div class="portrait-name">부이 티 투 짱</div>
+                <div class="portrait-role">3D 크리에이터 · 웹 개발자</div>
+              </div>
+              <span class="portrait-flag">3D 아트 · 2026</span>
+            </div>
+          </div>
         </div>
       </section>
 
-
-      <section class="games" id="games" aria-labelledby="games-title">
-        <div class="games-heading">
-          <div>
-            <div class="section-label">Play something</div>
-            <h2 id="games-title">작은 게임들</h2>
+      <section class="section-block" id="about" aria-labelledby="about-title">
+        <div class="wallpaper-banner">
+          <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1400&q=85" alt="추상적인 3D 디지털 아트">
+          <div class="wallpaper-banner-caption">
+            <span>몰입형 3D 아트 · 창의성과 비전</span>
+            <strong>상상력을 현실감 있는 디지털 공간으로</strong>
           </div>
-          <p>잠깐 쉬어가고 싶을 때 즐길 수 있는 미니게임을 모았습니다. 마음에 드는 게임을 골라 시작해 보세요.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <span class="section-kicker">이 공간에 대하여</span>
+            <h2 id="about-title">상상력을 입체적인 공간으로<br>아이디어를 새로운 경험으로</h2>
+            <p>이곳은 3D 디자인을 바탕으로 웹 프로젝트와 창작물을 모은 개인 아카이브입니다. 브라우저 게임과 AI 음악, 베트남 문화에 관한 이야기를 한곳에서 만나 보세요.</p>
+            <div class="tags-wrap" aria-label="기술과 관심 분야">
+              <span class="skill-tag">#HTML5 / CSS3 3D</span>
+              <span class="skill-tag">#JavaScript 인터랙션</span>
+              <span class="skill-tag">#AI 음악 · Suno</span>
+              <span class="skill-tag">#베트남 문화</span>
+              <span class="skill-tag">#GitHub Pages</span>
+            </div>
+            <div class="about-stats">
+              <div class="stat-card"><div class="stat-num">04</div><div class="stat-label">웹 게임</div></div>
+              <div class="stat-card"><div class="stat-num">03</div><div class="stat-label">AI 음악</div></div>
+              <div class="stat-card"><div class="stat-num">20+</div><div class="stat-label">베트남 음식</div></div>
+              <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">반응형 디자인</div></div>
+            </div>
+          </div>
+          <div class="about-collage" aria-label="3D 창작 공간 갤러리">
+            <div class="collage-card tall">
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=700&q=80" alt="3D 디지털 아트">
+              <span class="collage-label">3D 크리에이티브</span>
+            </div>
+            <div class="collage-card">
+              <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="사이버펑크 스타일 아트">
+              <span class="collage-label">웹과 코드</span>
+            </div>
+            <div class="collage-card">
+              <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=600&q=80" alt="음악 작업실">
+              <span class="collage-label">사운드와 아트</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="games" aria-labelledby="games-title">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">인터랙티브 웹 프로젝트</span>
+            <h2 id="games-title">브라우저 미니 게임</h2>
+          </div>
+          <p>HTML, CSS, JavaScript로 만든 네 가지 미니 게임을 바로 즐겨 보세요.</p>
         </div>
         <div class="game-grid">
           <a class="game-card" href="https://buitrang29012005-debug.github.io/game/01_dice.html">
-            <div><span class="game-icon" aria-hidden="true">🎲</span><h3>주사위 3개</h3><p>주사위 세 개를 굴려 합계를 확인하고 행운의 잭팟에 도전해 보세요.</p></div>
-            <span class="game-play">게임 시작 ↗</span>
+            <div class="game-thumb-wrap"><img class="game-thumb" src="https://images.unsplash.com/photo-1522069213448-443a614da9b6?auto=format&fit=crop&w=600&q=80" alt="주사위 게임"><span class="game-badge">PROJECT 01</span></div>
+            <div class="game-body"><div><h3>행운의 주사위</h3><p>주사위를 굴려 결과를 맞히고 행운의 잭팟에 도전해 보세요.</p></div><span class="game-play"><span>지금 플레이</span><span aria-hidden="true">↗</span></span></div>
           </a>
           <a class="game-card" href="https://buitrang29012005-debug.github.io/game/02_dice.html">
-            <div><span class="game-icon" aria-hidden="true">🎯</span><h3>5×5 빙고</h3><p>숫자를 골라 표시하고 가로·세로·대각선 빙고를 완성해 보세요.</p></div>
-            <span class="game-play">게임 시작 ↗</span>
+            <div class="game-thumb-wrap"><img class="game-thumb" src="https://images.unsplash.com/photo-1611996575749-79a3a250f948?auto=format&fit=crop&w=600&q=80" alt="빙고 게임"><span class="game-badge">PROJECT 02</span></div>
+            <div class="game-body"><div><h3>빙고 5×5</h3><p>숫자를 골라 가로, 세로, 대각선 줄을 완성하고 빙고를 외쳐 보세요.</p></div><span class="game-play"><span>지금 플레이</span><span aria-hidden="true">↗</span></span></div>
           </a>
           <a class="game-card" href="https://buitrang29012005-debug.github.io/game/03_dice.html">
-            <div><span class="game-icon" aria-hidden="true">🧩</span><h3>블록 블라스트</h3><p>블록을 보드에 놓고 한 줄씩 지우며 최고 점수에 도전해 보세요.</p></div>
-            <span class="game-play">게임 시작 ↗</span>
+            <div class="game-thumb-wrap"><img class="game-thumb" src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=600&q=80" alt="블록 퍼즐 게임"><span class="game-badge">PROJECT 03</span></div>
+            <div class="game-body"><div><h3>블록 블라스트</h3><p>블록을 보드에 배치해 행을 지우고 최고 점수에 도전하세요.</p></div><span class="game-play"><span>지금 플레이</span><span aria-hidden="true">↗</span></span></div>
           </a>
           <a class="game-card" href="https://buitrang29012005-debug.github.io/game/04_dice.html">
-            <div><span class="game-icon" aria-hidden="true">🐍</span><h3>스네이크</h3><p>뱀을 조종해 먹이를 먹고 벽에 부딪히지 않도록 오래 버텨 보세요.</p></div>
-            <span class="game-play">게임 시작 ↗</span>
+            <div class="game-thumb-wrap"><img class="game-thumb" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="레트로 스네이크 게임"><span class="game-badge">PROJECT 04</span></div>
+            <div class="game-body"><div><h3>스네이크 아케이드</h3><p>먹이를 모으고 장애물을 피하며 나만의 최고 기록을 세워 보세요.</p></div><span class="game-play"><span>지금 플레이</span><span aria-hidden="true">↗</span></span></div>
           </a>
         </div>
       </section>
 
-
-
-      <section class="music" id="music" aria-labelledby="music-title">
-        <div class="music-head">
-          <div>
-            <div class="section-label">Made with Suno</div>
-            <h2 id="music-title">내가 만든 음악</h2>
-          </div>
-          <p>서로 다른 분위기의 세 곡을 골랐습니다. 제목을 누르면 Suno에서 곡과 가사를 볼 수 있어요.</p>
+      <section class="section-block" id="music" aria-labelledby="music-title">
+        <div class="section-header">
+          <div><span class="section-kicker">생성형 음악 · Suno</span><h2 id="music-title">AI와 함께 만든 음악</h2></div>
+          <p>다양한 장르와 감성을 담은 음악을 만나 보세요. 각 곡이 저마다의 분위기와 이야기를 들려줍니다.</p>
         </div>
         <div class="music-grid">
           <a class="music-card" href="https://suno.com/song/d70ace33-0649-443d-82ff-54364c8d5a64" target="_blank" rel="noreferrer">
-            <div>
-              <div class="music-mark"><span>KOREAN DRILL · RAP</span><span class="music-icon" aria-hidden="true">🎙️</span></div>
-              <h3>밑에서 시작해</h3>
-              <p>빈손에서 출발해 자기 힘으로 길을 열어 가자는 메시지를 담은 한국어 드릴 랩.</p>
-            </div>
-            <div class="music-cta"><span>4:00 · Suno에서 듣기</span><span aria-hidden="true">↗</span></div>
+            <img class="music-bg" src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=700&q=80" alt="힙합 음악 스튜디오"><div class="music-overlay"></div><div class="music-content"><div class="music-mark"><span class="music-pill">KOREAN DRILL · RAP</span><span>04:00</span></div><div><h3>한밤의 드릴 랩</h3><p>강렬한 비트와 묵직한 랩으로 밤의 에너지를 담아낸 트랙입니다.</p><div class="music-cta"><span>Suno에서 듣기</span><span aria-hidden="true">↗</span></div></div></div>
           </a>
           <a class="music-card" href="https://suno.com/song/a7b39116-9dd0-49ca-90ea-1fb87e69c6fa" target="_blank" rel="noreferrer">
-            <div>
-              <div class="music-mark"><span>ELECTRONIC POP</span><span class="music-icon" aria-hidden="true">🌤️</span></div>
-              <h3>같은 풍경 다정해</h3>
-              <p>익숙한 골목과 작은 친절에서 하루의 온기를 발견하는 산뜻한 팝.</p>
-            </div>
-            <div class="music-cta"><span>2:59 · Suno에서 듣기</span><span aria-hidden="true">↗</span></div>
+            <img class="music-bg" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=80" alt="일렉트로닉 팝"><div class="music-overlay"></div><div class="music-content"><div class="music-mark"><span class="music-pill">ELECTRONIC POP</span><span>02:59</span></div><div><h3>익숙한 하루의 색</h3><p>산뜻한 팝 사운드가 평온함과 일상의 작은 아름다움을 전합니다.</p><div class="music-cta"><span>Suno에서 듣기</span><span aria-hidden="true">↗</span></div></div></div>
           </a>
           <a class="music-card" href="https://suno.com/song/652f8bc7-e6ad-409e-9778-60aa4338cfd9" target="_blank" rel="noreferrer">
-            <div>
-              <div class="music-mark"><span>BOSSA NOVA · INSTRUMENTAL</span><span class="music-icon" aria-hidden="true">🎸</span></div>
-              <h3>3 분 보사노바 반주</h3>
-              <p>나일론 기타 리듬과 따뜻한 전자 베이스, 은은한 신스가 어우러진 연주곡.</p>
-            </div>
-            <div class="music-cta"><span>3:19 · Suno에서 듣기</span><span aria-hidden="true">↗</span></div>
+            <img class="music-bg" src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=700&q=80" alt="보사노바 기타"><div class="music-overlay"></div><div class="music-content"><div class="music-mark"><span class="music-pill">BOSSA NOVA · INSTRUMENTAL</span><span>03:19</span></div><div><h3>3분 보사노바</h3><p>나일론 기타와 부드러운 베이스가 어우러진 편안한 연주곡입니다.</p><div class="music-cta"><span>Suno에서 듣기</span><span aria-hidden="true">↗</span></div></div></div>
           </a>
         </div>
       </section>
 
-      <section class="cuisine" id="cuisine" aria-labelledby="cuisine-title">
-        <div class="cuisine-head">
-          <div>
-            <div class="section-label">Vietnamese food</div>
-            <h2 id="cuisine-title">베트남 요리 백과</h2>
-          </div>
-          <p>북부의 맑은 국수부터 중부의 향긋한 별미와 남부의 풍성한 한 끼까지, 베트남의 맛을 소개합니다.</p>
+      <section class="section-block" id="cuisine" aria-labelledby="cuisine-title">
+        <div class="section-header">
+          <div><span class="section-kicker">문화 아카이브 · 베트남</span><h2 id="cuisine-title">베트남 음식 아카이브</h2></div>
+          <p>베트남 북부에서 중부까지, 지역의 이야기를 담은 대표 음식과 풍성한 맛을 만나 보세요.</p>
         </div>
         <div class="cuisine-grid">
-          <a class="cuisine-item" href="vietnamese-cuisine.html">
-            <span class="cuisine-icon" aria-hidden="true">🍜</span>
-            <span><span class="cuisine-region">북부 · 하노이</span><h3>소고기 쌀국수 (Phở bò)</h3><p>향신료 향이 은은한 맑은 육수와 쌀국수의 대표 조합.</p></span>
-          </a>
-          <a class="cuisine-item" href="vietnamese-cuisine.html">
-            <span class="cuisine-icon" aria-hidden="true">🥖</span>
-            <span><span class="cuisine-region">전국에서 즐기는 길거리 음식</span><h3>베트남식 바게트 샌드위치 (Bánh mì)</h3><p>바삭한 바게트에 고기와 절임 채소, 고수를 채워 넣어요.</p></span>
-          </a>
-          <a class="cuisine-item" href="vietnamese-cuisine.html">
-            <span class="cuisine-icon" aria-hidden="true">🔥</span>
-            <span><span class="cuisine-region">북부 · 하노이</span><h3>숯불 돼지고기 쌀국수 (Bún chả)</h3><p>숯불 돼지고기와 쌀국수, 허브를 새콤달콤한 소스에 곁들여요.</p></span>
-          </a>
-          <a class="cuisine-item" href="vietnamese-cuisine.html">
-            <span class="cuisine-icon" aria-hidden="true">🌶️</span>
-            <span><span class="cuisine-region">중부 · 후에</span><h3>후에식 매콤한 소고기 쌀국수 (Bún bò Huế)</h3><p>레몬그라스와 매콤한 향이 살아 있는 후에식 소고기 국수.</p></span>
-          </a>
-          <a class="cuisine-item" href="vietnamese-cuisine.html">
-            <span class="cuisine-icon" aria-hidden="true">🥢</span>
-            <span><span class="cuisine-region">중부 · 호이안</span><h3>호이안식 돼지고기 국수 (Cao lầu)</h3><p>도톰한 면과 양념 돼지고기, 생허브를 올린 호이안의 명물.</p></span>
-          </a>
-          <a class="cuisine-item" href="vietnamese-cuisine.html">
-            <span class="cuisine-icon" aria-hidden="true">🍋</span>
-            <span><span class="cuisine-region">중부 · 꽝남</span><h3>꽝남식 강황 국수 (Mì Quảng)</h3><p>강황빛 면과 소량의 진한 육수, 고명과 바삭한 쌀과자.</p></span>
-          </a>
+          <a class="cuisine-item" href="vietnamese-cuisine.html"><div class="cuisine-photo-wrap"><img class="cuisine-photo" src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=700&q=80" alt="하노이 쌀국수"><span class="cuisine-region">베트남 북부 · 하노이</span></div><div class="cuisine-body"><h3>하노이식 전통 쌀국수</h3><p>깊고 맑은 육수에 쌀국수와 얇게 썬 소고기를 더한 하노이의 대표 음식입니다.</p></div></a>
+          <a class="cuisine-item" href="vietnamese-cuisine.html"><div class="cuisine-photo-wrap"><img class="cuisine-photo" src="https://images.unsplash.com/photo-1600454021970-351eff4a6554?auto=format&fit=crop&w=700&q=80" alt="베트남 반미"><span class="cuisine-region">전국 · 길거리 음식</span></div><div class="cuisine-body"><h3>바삭한 베트남 반미</h3><p>바삭한 바게트에 파테와 고기, 절임 채소, 신선한 허브를 채워 넣었습니다.</p></div></a>
+          <a class="cuisine-item" href="vietnamese-cuisine.html"><div class="cuisine-photo-wrap"><img class="cuisine-photo" src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=700&q=80" alt="하노이 분짜"><span class="cuisine-region">베트남 북부 · 하노이</span></div><div class="cuisine-body"><h3>하노이식 분짜</h3><p>숯불 돼지고기를 쌀국수와 신선한 채소, 새콤달콤한 느억맘 소스와 함께 즐깁니다.</p></div></a>
+          <a class="cuisine-item" href="vietnamese-cuisine.html"><div class="cuisine-photo-wrap"><img class="cuisine-photo" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=700&q=80" alt="후에식 분보"><span class="cuisine-region">베트남 중부 · 후에</span></div><div class="cuisine-body"><h3>매콤한 후에식 분보</h3><p>레몬그라스와 고추 향이 어우러진 육수에 소고기와 돼지고기를 곁들인 국수입니다.</p></div></a>
+          <a class="cuisine-item" href="vietnamese-cuisine.html"><div class="cuisine-photo-wrap"><img class="cuisine-photo" src="https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=700&q=80" alt="호이안 까오러우"><span class="cuisine-region">베트남 중부 · 호이안</span></div><div class="cuisine-body"><h3>호이안 까오러우</h3><p>쫄깃한 면에 돼지고기와 바삭한 토핑, 신선한 허브를 곁들인 호이안의 명물입니다.</p></div></a>
+          <a class="cuisine-item" href="vietnamese-cuisine.html"><div class="cuisine-photo-wrap"><img class="cuisine-photo" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=80" alt="꽝남 미꽝"><span class="cuisine-region">베트남 중부 · 꽝남</span></div><div class="cuisine-body"><h3>꽝남식 미꽝</h3><p>강황을 넣은 면과 진한 육수에 새우, 돼지고기, 땅콩, 바삭한 라이스페이퍼를 곁들입니다.</p></div></a>
         </div>
-        <a class="cuisine-more" href="vietnamese-cuisine.html"><span>요리 백과에서 20가지 모두 보기</span><span aria-hidden="true">↗</span></a>
-      </section>
-
-      <section class="about" id="about" aria-labelledby="about-title">
-        <div class="section-label">About this space</div>
-        <div>
-          <h2 id="about-title">천천히, 나답게.</h2>
-          <p>이곳은 브이티투짱의 개인 홈페이지입니다. 앞으로 좋아하는 것과 작업, 생각을 이곳에 차곡차곡 담아 보려고 합니다. 편하게 둘러봐 주세요.</p>
-        </div>
+        <a class="cuisine-more" href="vietnamese-cuisine.html"><span>베트남 음식 아카이브에서 20가지 대표 음식을 만나 보세요</span><span aria-hidden="true">↗</span></a>
       </section>
     </main>
 
     <footer>
-      <span>© <span id="year"></span> 브이티투짱</span>
-      <span>Made with care · GitHub Pages</span>
+      <div class="footer-inner">
+        <span>© <span id="year"></span> <strong>부이 티 투 짱</strong> · 모든 권리 보유</span>
+        <div class="footer-links"><a href="#about">소개</a><a href="#games">게임</a><a href="#music">AI 음악</a><a href="#cuisine">베트남 음식</a><a href="https://github.com/buitrang29012005-debug" target="_blank" rel="noreferrer">GitHub</a></div>
+      </div>
     </footer>
   </div>
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
