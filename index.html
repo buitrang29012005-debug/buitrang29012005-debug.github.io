@@ -267,7 +267,7 @@
       box-shadow: var(--shadow-md);
     }
 
-    /* 3D 3D 아바타 Frame (Nh창n v梳춗 ho梳죜 h챙nh 3D) */
+    /* 입체감을 살린 3D 아바타 프레임 */
     .portrait-wrap {
       position: relative;
       display: flex;
@@ -950,7 +950,217 @@
     @media (prefers-reduced-motion:reduce) {
       *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
     }
-  </style>
+  
+
+    /* Professional 3D portfolio art direction */
+    :root {
+      color-scheme: light;
+      --paper: #f4f6f7;
+      --surface: rgba(255, 255, 255, 0.92);
+      --surface-solid: #ffffff;
+      --surface-subtle: #eaf0f1;
+      --ink: #142b3a;
+      --muted: #586b78;
+      --accent: #16777d;
+      --accent-deep: #214a5b;
+      --accent-light: rgba(22, 119, 125, 0.10);
+      --line: rgba(20, 43, 58, 0.12);
+      --shadow-sm: 0 8px 24px rgba(20, 43, 58, 0.07);
+      --shadow-md: 0 18px 44px rgba(20, 43, 58, 0.11);
+      --shadow-lg: 0 30px 72px rgba(20, 43, 58, 0.16);
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --transition: all 0.26s cubic-bezier(0.2, 0.75, 0.25, 1);
+    }
+
+    body {
+      background: #f4f6f7;
+      color: var(--ink);
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.72;
+    }
+    .ambient-wallpaper {
+      opacity: 0.28;
+      transform: scale(1.02);
+      animation: none;
+      background-image:
+        radial-gradient(ellipse at 12% 16%, rgba(113, 186, 190, 0.46), transparent 34%),
+        radial-gradient(ellipse at 86% 20%, rgba(117, 157, 187, 0.42), transparent 38%),
+        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=85');
+      background-size: cover;
+      background-position: center;
+    }
+    .ambient-overlay {
+      background: linear-gradient(180deg, rgba(246, 249, 250, 0.75), rgba(244, 247, 248, 0.88) 48%, rgba(244, 246, 247, 0.96));
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .navbar-wrap {
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 3px 16px rgba(20, 43, 58, 0.04);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    header { height: 76px; }
+    .brand { color: var(--ink); font-size: 15px; letter-spacing: -0.035em; }
+    .brand-avatar {
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px rgba(22, 119, 125, 0.22), 0 5px 14px rgba(20, 43, 58, 0.12);
+    }
+    .nav { color: #536875; font-size: 13.5px; gap: 26px; }
+    .nav a:hover { color: var(--accent); }
+    .nav-github {
+      background: #fff;
+      border: 1px solid rgba(22, 119, 125, 0.24);
+      color: var(--accent-deep) !important;
+      box-shadow: none;
+    }
+    .nav-github:hover { background: #f5fbfb; border-color: var(--accent); box-shadow: var(--shadow-sm); }
+    .hero { min-height: min(700px, calc(100svh - 76px)); gap: 54px; }
+    .hero-glass-panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(30px, 4vw, 48px);
+      border-radius: 26px;
+      background: radial-gradient(circle at 100% 0%, rgba(22, 119, 125, 0.07), transparent 34%), rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.96);
+      box-shadow: var(--shadow-md), inset 0 1px 0 #fff;
+      transform: none;
+    }
+    .hero-glass-panel::before {
+      width: 260px;
+      height: 260px;
+      right: -150px;
+      top: -165px;
+      background: radial-gradient(circle, rgba(22, 119, 125, 0.14), rgba(117, 157, 187, 0.06) 54%, transparent 72%);
+    }
+    .hero-glass-panel:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .badge {
+      background: #eaf4f4;
+      border: 1px solid rgba(22, 119, 125, 0.14);
+      color: var(--accent-deep);
+      box-shadow: none;
+      letter-spacing: 0.08em;
+    }
+    .badge-pulse { background: var(--accent); box-shadow: 0 0 9px rgba(22, 119, 125, 0.42); }
+    h1 {
+      color: var(--ink);
+      font-size: clamp(38px, 4.8vw, 62px);
+      line-height: 1.18;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+    }
+    .hero-highlight { background-image: linear-gradient(115deg, #1c5969 4%, #16777d 68%, #8d6a4d 100%); }
+    .intro { color: #526574; font-size: clamp(15px, 1.5vw, 17px); line-height: 1.85; }
+    .btn-primary {
+      background: linear-gradient(135deg, #214a5b, #16777d);
+      border-radius: 11px;
+      box-shadow: 0 10px 22px rgba(22, 119, 125, 0.20);
+    }
+    .btn-primary:hover { box-shadow: 0 14px 28px rgba(22, 119, 125, 0.26); }
+    .btn-secondary { border: 1px solid var(--line); border-radius: 11px; box-shadow: none; }
+    .btn-secondary:hover { border-color: rgba(22, 119, 125, 0.42); box-shadow: var(--shadow-sm); }
+    .portrait-wrap { perspective: 1200px; }
+    .portrait-ring {
+      border: 1px solid rgba(22, 119, 125, 0.28);
+      border-radius: 220px 220px 34px 34px;
+      animation: none;
+    }
+    .portrait-frame {
+      border-radius: 190px 190px 24px 24px;
+      border: 5px solid rgba(255, 255, 255, 0.96);
+      box-shadow: 0 28px 64px rgba(20, 43, 58, 0.20), 0 0 0 1px rgba(22, 119, 125, 0.10);
+      transform: rotateY(-4deg) rotateX(2deg);
+    }
+    .portrait-frame:hover { transform: rotateY(0) rotateX(0) translateY(-5px); }
+    .portrait-caption {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(20, 43, 58, 0.08);
+      box-shadow: 0 8px 22px rgba(20, 43, 58, 0.12);
+    }
+    .portrait-flag { background: var(--accent-deep); }
+    .section-block { padding: 82px 0; border-color: rgba(20, 43, 58, 0.11); }
+    .section-kicker { color: var(--accent); font-size: 11.5px; letter-spacing: 0.13em; }
+    .section-header h2 { color: var(--ink); text-shadow: none; font-size: clamp(29px, 3.7vw, 42px); }
+    .section-header p { color: var(--muted); font-size: 14.5px; }
+    .wallpaper-banner {
+      height: 238px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-md);
+    }
+    .wallpaper-banner-caption { background: linear-gradient(90deg, rgba(16, 39, 53, 0.72), rgba(16, 39, 53, 0.18) 74%, transparent); }
+    .wallpaper-banner-caption span { color: #d8eeee; }
+    .about-text {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(20, 43, 58, 0.08);
+      box-shadow: var(--shadow-sm);
+    }
+    .about-text h2 { color: var(--ink); }
+    .about-text p { color: var(--muted); font-size: 15px; }
+    .skill-tag {
+      background: #f8fbfb;
+      border-color: rgba(20, 43, 58, 0.10);
+      border-radius: 999px;
+      color: #355364;
+      box-shadow: none;
+      font-size: 12.5px;
+    }
+    .stat-card, .game-card, .cuisine-item {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(20, 43, 58, 0.09);
+      box-shadow: 0 10px 28px rgba(20, 43, 58, 0.07);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transform-style: preserve-3d;
+    }
+    .stat-card { border-radius: 14px; }
+    .stat-num { color: var(--accent); }
+    .stat-label { color: var(--muted); }
+    .collage-card { border-color: rgba(255, 255, 255, 0.96); box-shadow: var(--shadow-sm); }
+    .collage-label { background: rgba(20, 43, 58, 0.82); }
+    .game-card, .cuisine-item { border-radius: 16px; }
+    .game-card:hover, .cuisine-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(22, 119, 125, 0.36);
+      box-shadow: var(--shadow-md);
+    }
+    .game-badge { background: rgba(20, 43, 58, 0.82); }
+    .game-card h3, .cuisine-item h3 { color: var(--ink); }
+    .game-card p, .cuisine-item p { color: var(--muted); }
+    .game-play, .cuisine-region { color: var(--accent-deep); }
+    .music-card { box-shadow: 0 18px 42px rgba(20, 31, 43, 0.20); }
+    .music-card:hover { transform: translateY(-5px); box-shadow: 0 24px 50px rgba(20, 31, 43, 0.24); }
+    .cuisine-more {
+      background: linear-gradient(135deg, #214a5b, #16777d);
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(22, 119, 125, 0.18);
+    }
+    .cuisine-more:hover { box-shadow: 0 14px 28px rgba(22, 119, 125, 0.25); }
+    footer {
+      background: rgba(255, 255, 255, 0.88);
+      border-color: var(--line);
+      color: var(--muted);
+      backdrop-filter: blur(14px);
+    }
+    .footer-links a:hover { color: var(--accent); }
+    :focus-visible { outline: 3px solid rgba(22, 119, 125, 0.62); outline-offset: 4px; }
+    @media (max-width: 980px) {
+      .hero-glass-panel { transform: none; }
+      .portrait-frame { transform: none; }
+    }
+    @media (max-width: 680px) {
+      header { height: 70px; }
+      .section-block { padding: 64px 0; }
+      .hero-glass-panel { padding: 28px 24px; }
+      .wallpaper-banner { height: 190px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ambient-wallpaper { animation: none !important; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
+</style>
 </head>
 <body>
   <div class="ambient-wallpaper" aria-hidden="true"></div>
